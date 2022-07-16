@@ -30,7 +30,7 @@ export default {
         try {
             let query = { userId: req.query.id }
 
-            const tasks = await Task.find(query)
+            const tasks = await Task.find(query).populate('userId', 'name')
 
             return res.status(200).send({
                 success: true,

@@ -1,0 +1,39 @@
+.add-task {
+  margin: 10px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-family: sans-serif;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.select-btn {
+  margin-left: 20%;
+}
+
+.title-input {
+  width: 100%;
+}
+
+.save-btn {
+  text-align: end;
+}
+
+
+.status-title {
+  font-family: sans-serif;
+  font-weight: bold;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}

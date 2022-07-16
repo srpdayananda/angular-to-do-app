@@ -1,41 +1,5 @@
 <div class="user">
     <button mat-raised-button color="primary" (click)="addTaskModal()" type="button">Create Task</button>
-    <mat-form-field class="select-btn" appearance="fill">
-        <mat-label>Select User</mat-label>
-        <mat-select>
-            <mat-option [value]="">Userone</mat-option>
-            <mat-option [value]="">Usertwo</mat-option>
-            <mat-option [value]="">Userthree</mat-option>
-            <mat-option [value]="">All</mat-option>
-        </mat-select>
-    </mat-form-field>
-
-    <div class="example-container">
-        <h2>To do</h2>
-
-        <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo"
-            [cdkDropListConnectedTo]="[inprogressList,doneList]" class="example-list"
-            (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let task of tasksList" cdkDrag>{{task.title}}</div>
-        </div>
-    </div>
-
-    <div class="example-container">
-        <h2>Inprogress</h2>
-
-        <div cdkDropList #inprogressList="cdkDropList" [cdkDropListData]="inprogress"
-            [cdkDropListConnectedTo]="[todoList,doneList]" class="example-list" (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let task of tasksList" cdkDrag>{{task.title}}</div>
-        </div>
-    </div>
-
-    <div class="example-container">
-        <h2>Done</h2>
-
-        <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[doneList]"
-            class="example-list" (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let task of tasksList" cdkDrag>{{task.title}}</div>
-        </div>
-    </div>
+    <app-users-list (selectedUserId)="onSelectedUserId($event)"></app-users-list>
+    <app-tasks-list *ngIf="tasksList"></app-tasks-list>
 </div>
-<app-add-task #onAddTaskModal></app-add-task>

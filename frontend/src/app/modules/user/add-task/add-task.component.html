@@ -1,3 +1,29 @@
-<ng-template #template>
-    <p>add-task works!</p>
-</ng-template>
+<div class="add-task">
+    <div class="header">
+        <h2 class="title">Add Task</h2>
+        <mat-form-field class="select-btn" appearance="fill">
+            <mat-label>Select User</mat-label>
+            <mat-select>
+                <mat-option [value]="">Userone</mat-option>
+                <mat-option [value]="">Usertwo</mat-option>
+                <mat-option [value]="">Userthree</mat-option>
+                <mat-option [value]="">All</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <form [formGroup]="formAddTask" (ngSubmit)="addTask()">
+        <mat-form-field class="title-input" appearance="fill">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" placeholder="please enter task titile" value="">
+        </mat-form-field>
+        <label class="status-title">Pick your task status</label>
+        <mat-radio-group aria-label="Select an option" formControlName="status">
+            <mat-radio-button *ngFor="let status of statuss" [value]="status">{{ status }}</mat-radio-button>
+        </mat-radio-group>
+        <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close type="button">Cancel</button>
+            <button mat-button [mat-dialog-close]="true" type="submit">Save</button>
+        </mat-dialog-actions>
+    </form>
+
+</div>

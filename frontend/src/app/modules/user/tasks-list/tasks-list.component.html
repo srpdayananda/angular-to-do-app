@@ -1,1 +1,30 @@
-<p>tasks-list works!</p>
+<div class="task-list">
+
+  <div class="example-container">
+    <h2>To do</h2>
+
+    <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todoTasks"
+      [cdkDropListConnectedTo]="[inprogressList,doneList]" class="example-list" (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let task of todoTasks" cdkDrag>{{task.title}}</div>
+    </div>
+  </div>
+
+  <div class="example-container">
+    <h2>Inprogress</h2>
+
+    <div cdkDropList #inprogressList="cdkDropList" [cdkDropListData]="inprogressTasks"
+      [cdkDropListConnectedTo]="[todoList,doneList]" class="example-list" (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let task of inprogressTasks" cdkDrag>{{task.title}}</div>
+    </div>
+  </div>
+
+  <div class="example-container">
+    <h2>Done</h2>
+
+    <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="doneTasks" [cdkDropListConnectedTo]="[doneList]"
+      class="example-list" (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let task of doneTasks" cdkDrag>{{task.title}}</div>
+    </div>
+  </div>
+
+</div>

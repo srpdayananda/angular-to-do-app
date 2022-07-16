@@ -1,20 +1,31 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
+import { TaskHttpResponse, TasksHttpResponse } from 'src/app/shared/types/task.props';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
   apiUrl: string;
+  tasks: any;
 
   constructor(private http: HttpClient) {
     this.apiUrl = environment.apiUrl;
   }
 
-  getTasks(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/task`)
+  getTasks(id?: string): Observable<TasksHttpResponse> {
+    let params = new HttpParams()
+    if (id) {
+      params = new HttpParams().append('id', id)
+    }
+    return this.http.get<TasksHttpResponse>(`${this.apiUrl}/task`, { params })
   }
+
+  createTask(props: any): Observable<TaskHttpResponse> {
+    return this.http.post<TaskHttpResponse>(`${this.apiUrl}/task`, props)
+  }
+
 }

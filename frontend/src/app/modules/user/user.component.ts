@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
+import { RebuildTaskService } from 'src/app/core/services/rebuild-task/rebuild-task.service';
 import { TaskService } from 'src/app/core/services/task/task.service';
 import { ITask } from 'src/app/shared/interfaces/task.interface';
-import { Task } from '../../shared/enums/task.enum';
 import { AddTaskComponent } from './add-task/add-task.component';
+
 
 @Component({
   selector: 'app-user',
@@ -12,48 +13,45 @@ import { AddTaskComponent } from './add-task/add-task.component';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  @ViewChild('onAddTaskModal') onAddTaskModal: AddTaskComponent;
-  tasksList: Array<ITask>;
-  todo: Task;
-  inprogress: Task;
-  done: Task;
+  tasksList: Array<ITask> | [];
+  selectUserId: string | null;
 
-  constructor(private taskService: TaskService) {
-    this.todo = Task.TODO;
-    this.inprogress = Task.INPROGRESS;
-    this.done = Task.DONE;
+
+  constructor(
+    private taskService: TaskService,
+    private reBuildTaskService: RebuildTaskService,
+    private dailog: MatDialog,
+  ) {
   }
 
   ngOnInit(): void {
-    this.getTasks()
-  }
-
-  drop(event: CdkDragDrop<any>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
-    }
   }
 
   getTasks() {
-    this.taskService.getTasks().subscribe((response) => {
-      console.log(response)
+    this.taskService.getTasks(this.selectUserId!).subscribe((response) => {
       if (response.success) {
-        this.tasksList = response.tasks;
+        console.log('$$$', response.tasks)
+        this.tasksList = response.tasks || [];
+        this.reBuildTaskService.tasks = this.tasksList
+        this.selectUserId = null
       }
     }, (err) => {
       console.log(err)
     })
   }
 
+  onSelectedUserId(id: string | null) {
+    if (id) {
+      this.selectUserId = id
+      this.getTasks();
+      this.reBuildTaskService.todoStatusArray()
+      this.reBuildTaskService.inprogressStatusArray()
+      this.reBuildTaskService.doneStatusArray()
+    }
+  }
+
   addTaskModal() {
-    this.onAddTaskModal.openModal()
+    this.dailog.open(AddTaskComponent)
   }
 
 }

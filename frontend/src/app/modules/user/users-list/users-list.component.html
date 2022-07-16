@@ -1,0 +1,10 @@
+<div class="users-list">
+    <mat-form-field class="select-btn" appearance="fill">
+        <mat-label>Select User</mat-label>
+        <mat-select class="select-btn">
+            <mat-option *ngFor="let user of usersList" (click)="onSelectedItem(user.id)">
+                {{ user.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
