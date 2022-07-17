@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { UsersListComponent } from './users-list/users-list.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AddUserComponent } from './add-user/add-user.component';
 
 
 
@@ -22,7 +23,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     UserComponent,
     TasksListComponent,
     AddTaskComponent,
-    UsersListComponent
+    UsersListComponent,
+    AddUserComponent
   ],
   imports: [
     CommonModule,

@@ -48,4 +48,5 @@ export class TasksListComponent implements OnInit {
   onDoneTasks() {
     this.doneTasks = this.reTaskService.doneStatusArray();
   }
+
 }

@@ -1,0 +1,26 @@
+.add-user {
+  width: 500px;
+}
+
+.header {
+  text-align: center;
+}
+
+.email-input {
+  width: 100%;
+}
+
+.user-name-input {
+  width: 100%;
+}
+
+.user-role {
+  font-family: sans-serif;
+  font-weight: bold;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}

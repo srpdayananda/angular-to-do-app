@@ -17,15 +17,15 @@ export default {
                     error: 'Both email and password required'
                 })
             }
-            const foundUser = await User.findOne({ email });
-            if (!foundUser) {
+            const user = await User.findOne({ email });
+            if (!user) {
                 return res.status(500).send({
                     success: false,
                     message: 'Login fail',
                     error: 'Email address not registired'
                 })
             }
-            const passwordMatch = await bcrypt.compare(password, foundUser.password)
+            const passwordMatch = await bcrypt.compare(password, user.password)
             if (!passwordMatch) {
                 return res.status(500).send({
                     success: false,
@@ -33,15 +33,15 @@ export default {
                     error: 'Password incorrect'
                 })
             }
-            const token = jwt.sign({ userId: foundUser._id }, TOKEN_KEY, { expiresIn: '1d' })
-            await User.updateOne({ _id: foundUser._id }, { accessToken: token })
+            const token = jwt.sign({ userId: user._id }, TOKEN_KEY, { expiresIn: '1d' })
+            await User.updateOne({ _id: user._id }, { accessToken: token })
 
             const userDetails = {
-                id: foundUser._id,
-                email: foundUser.email,
-                password: foundUser.password,
-                name: foundUser.name,
-                role: foundUser.role,
+                id: user._id,
+                email: user.email,
+                password: user.password,
+                name: user.name,
+                role: user.role,
                 accessToken: token
             }
 

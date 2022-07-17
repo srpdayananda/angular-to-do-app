@@ -1,5 +1,20 @@
 <div class="user">
-    <button mat-raised-button color="primary" (click)="addTaskModal()" type="button">Create Task</button>
-    <app-users-list (selectedUserId)="onSelectedUserId($event)"></app-users-list>
+    <button mat-raised-button color="primary" 
+    (click)="addTaskModal()" 
+    type="button"
+    >Create Task</button>
+
+    <button mat-raised-button 
+    color="accent" 
+    type="button" 
+    (click)="addUserModal()"
+    style="margin-left: 10px;"
+    >Create User</button>
+
+    <app-users-list  
+    [allTasks]="tasksList" 
+    (selectedUserId)="onSelectedUserId($event)"
+    ></app-users-list>
+
     <app-tasks-list *ngIf="tasksList"></app-tasks-list>
 </div>

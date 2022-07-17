@@ -5,6 +5,7 @@
             <mat-option *ngFor="let user of usersList" (click)="onSelectedItem(user.id)">
                 {{ user.name}}
             </mat-option>
+            <mat-option (click)="onSelectedItem()">All</mat-option>
         </mat-select>
     </mat-form-field>
 </div>

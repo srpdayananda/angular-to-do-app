@@ -1,0 +1,36 @@
+<div class="add-user">
+    <div class="header">
+        <h2>Add User</h2>
+    </div>
+    <form [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="email-input" appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput 
+            placeholder="Please enter user email"
+            formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field class="user-name-input" appearance="fill">
+            <mat-label>User Name</mat-label>
+            <input matInput 
+            placeholder="Please enter user name"
+            formControlName="name">
+        </mat-form-field>
+
+        <label class="user-role">Pick user role</label>
+        <mat-radio-group 
+        aria-label="Select an option"
+        formControlName="role">
+            <mat-radio-button 
+            *ngFor="let role of userRoles" 
+            [value]="role"
+            >{{role}}</mat-radio-button>
+        </mat-radio-group>
+
+        <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close type="button">Cancel</button>
+            <button mat-button [mat-dialog-close]="true" type="submit">Save</button>
+        </mat-dialog-actions>
+    </form>
+
+</div>

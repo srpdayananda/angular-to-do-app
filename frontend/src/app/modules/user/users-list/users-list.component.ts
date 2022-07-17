@@ -1,6 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { RebuildTaskService } from 'src/app/core/services/rebuild-task/rebuild-task.service';
+import { TaskService } from 'src/app/core/services/task/task.service';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { IUser } from 'src/app/shared/interfaces/user.interface';
 
@@ -13,10 +14,12 @@ export class UsersListComponent implements OnInit {
   usersList: Array<IUser>
   selectValue: string
   @Output() selectedUserId = new EventEmitter<string | null>()
+  @Input() allTasks: any;
+  tasks: any;
 
   constructor(
     private userService: UserService,
-    private rebuildTaskService: RebuildTaskService
+    private taskService: TaskService
   ) {
     this.selectedUserId.emit(null)
   }
@@ -35,9 +38,11 @@ export class UsersListComponent implements OnInit {
     })
   }
 
-  onSelectedItem(id: string) {
+  onSelectedItem(id?: string) {
     if (id) {
       this.selectedUserId.emit(id)
+    } else {
+      
     }
   }
 

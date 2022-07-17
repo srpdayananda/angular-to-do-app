@@ -5,6 +5,8 @@ import { Task } from './../../../../../../backend/src/common/enums/task';
 import { TaskService } from 'src/app/core/services/task/task.service';
 import { ToastrService } from 'ngx-toastr';
 import { RebuildTaskService } from 'src/app/core/services/rebuild-task/rebuild-task.service';
+import { UserService } from 'src/app/core/services/user/user.service';
+import { IUser } from 'src/app/shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-add-task',
@@ -13,18 +15,22 @@ import { RebuildTaskService } from 'src/app/core/services/rebuild-task/rebuild-t
 })
 export class AddTaskComponent implements OnInit {
   formAddTask: FormGroup;
-  statuss: Array<string>
+  statuss: Array<string>;
+  usersList: Array<IUser>
 
   constructor(
     private fb: FormBuilder,
     private taskService: TaskService,
     private toastr: ToastrService,
-    private rebuildTaskService: RebuildTaskService
+    private rebuildTaskService: RebuildTaskService,
+    private usersService: UserService
   ) {
     this.statuss = Object.keys(Task)
   }
 
   ngOnInit(): void {
+    this.getUsers()
+
     this.formAddTask = this.fb.group({
       title: new FormControl(null, Validators.required),
       status: new FormControl(this.statuss[0], Validators.required)
@@ -38,6 +44,16 @@ export class AddTaskComponent implements OnInit {
     this.taskService.createTask(this.formAddTask.value).subscribe((response) => {
       if (response.success) {
         this.toastr.success(response.message)
+      }
+    }, (err) => {
+      console.log(err)
+    })
+  }
+
+  getUsers() {
+    this.usersService.getUsers().subscribe((response) => {
+      if (response.success) {
+        this.usersList = response.users
       }
     }, (err) => {
       console.log(err)

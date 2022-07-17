@@ -16,7 +16,7 @@ app.use(express.json())
 app.use(cors())
 
 app.use('/login', authRouter)
-app.use('/user', userRouter)
+app.use('/user',auth, userRouter)
 app.use('/task', auth, taskRouter)
 
 app.listen(port, () => {

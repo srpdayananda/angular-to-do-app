@@ -5,6 +5,7 @@ import { RebuildTaskService } from 'src/app/core/services/rebuild-task/rebuild-t
 import { TaskService } from 'src/app/core/services/task/task.service';
 import { ITask } from 'src/app/shared/interfaces/task.interface';
 import { AddTaskComponent } from './add-task/add-task.component';
+import { AddUserComponent } from './add-user/add-user.component';
 
 
 @Component({
@@ -52,6 +53,10 @@ export class UserComponent implements OnInit {
 
   addTaskModal() {
     this.dailog.open(AddTaskComponent)
+  }
+
+  addUserModal() {
+    this.dailog.open(AddUserComponent)
   }
 
 }

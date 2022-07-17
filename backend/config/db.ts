@@ -10,10 +10,10 @@ export default {
                 "mongodb://localhost/angular_todo_app",
                 { useNewUrlParser: true }
             );
-            const user1 = await User.findOne({ email: "admin@todo.com" });
+            const user = await User.findOne({ email: "admin@todo.com" });
             console.log("...Database connected successfully...");
             const password = await bcrypt.hash("12345678", 10);
-            if (!user1) {
+            if (!user) {
                 await User.create({
                     email: "admin@todo.com",
                     name: "admin",
