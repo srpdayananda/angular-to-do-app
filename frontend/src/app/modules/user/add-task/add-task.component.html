@@ -4,7 +4,8 @@
         <mat-form-field class="select-btn" appearance="fill">
             <mat-label>Select User</mat-label>
             <mat-select >
-                <mat-option *ngFor="let user of usersList">
+                <mat-option *ngFor="let user of usersList"
+                (click)="selectUser(user.id)">
                     {{ user.name}}
                 </mat-option>
                 <mat-option [value]="">All</mat-option>
@@ -19,14 +20,6 @@
             formControlName="title" 
             placeholder="please enter task titile" value="">
         </mat-form-field>
-
-        <label class="status-title">Pick your task status</label>
-        <mat-radio-group aria-label="Select an option" formControlName="status">
-            <mat-radio-button 
-            *ngFor="let status of statuss" 
-            [value]="status"
-            >{{ status }}</mat-radio-button>
-        </mat-radio-group>
 
         <mat-dialog-actions align="end">
             <button mat-button mat-dialog-close type="button">Cancel</button>

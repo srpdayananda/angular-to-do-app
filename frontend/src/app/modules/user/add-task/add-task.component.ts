@@ -17,6 +17,7 @@ export class AddTaskComponent implements OnInit {
   formAddTask: FormGroup;
   statuss: Array<string>;
   usersList: Array<IUser>
+  userId: string | null
 
   constructor(
     private fb: FormBuilder,
@@ -26,12 +27,18 @@ export class AddTaskComponent implements OnInit {
     private usersService: UserService
   ) {
     this.statuss = Object.keys(Task)
+    this.userId = null
   }
 
   ngOnInit(): void {
     this.getUsers()
 
+    this.form()
+  }
+
+  private form() {
     this.formAddTask = this.fb.group({
+      id: this.userId,
       title: new FormControl(null, Validators.required),
       status: new FormControl(this.statuss[0], Validators.required)
     })
@@ -58,6 +65,13 @@ export class AddTaskComponent implements OnInit {
     }, (err) => {
       console.log(err)
     })
+  }
+
+  selectUser(id: string) {
+    if (id) {
+      this.userId = id
+      this.form()
+    }
   }
 
 }

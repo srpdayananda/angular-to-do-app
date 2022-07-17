@@ -26,6 +26,7 @@ export class TaskService {
   }
 
   createTask(props: any): Observable<TaskHttpResponse> {
+    console.log(props)
     return this.http.post<TaskHttpResponse>(`${this.apiUrl}/task`, props)
   }
 
