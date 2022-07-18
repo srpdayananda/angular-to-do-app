@@ -7,6 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { RebuildTaskService } from 'src/app/core/services/rebuild-task/rebuild-task.service';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { IUser } from 'src/app/shared/interfaces/user.interface';
+import { AUTH_USER } from 'src/app/core/constant/constant';
+import { Role } from './../../../../../../backend/src/common/enums/role';
 
 @Component({
   selector: 'app-add-task',
@@ -17,7 +19,8 @@ export class AddTaskComponent implements OnInit {
   formAddTask: FormGroup;
   statuss: Array<string>;
   usersList: Array<IUser>
-  userId: string | null
+  userId: string | null;
+  isManagerLogged: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -28,11 +31,12 @@ export class AddTaskComponent implements OnInit {
   ) {
     this.statuss = Object.keys(Task)
     this.userId = null
+    this.isManagerLogged = false
   }
 
   ngOnInit(): void {
+    this.isManager()
     this.getUsers()
-
     this.form()
   }
 
@@ -66,6 +70,16 @@ export class AddTaskComponent implements OnInit {
       console.log(err)
     })
   }
+
+  isManager() {
+    const loggedUser = localStorage.getItem(AUTH_USER)
+    const user = JSON.parse(loggedUser!)
+    if (user.role === Role.MANAGER) {
+      this.isManagerLogged = true;
+    }
+  }
+
+
 
   selectUser(id: string) {
     if (id) {

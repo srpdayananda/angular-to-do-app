@@ -1,7 +1,10 @@
 <div class="add-task">
     <div class="header">
         <h2 class="title">Add Task</h2>
-        <mat-form-field class="select-btn" appearance="fill">
+        <mat-form-field  
+        *ngIf="isManagerLogged"
+        class="select-btn" 
+        appearance="fill">
             <mat-label>Select User</mat-label>
             <mat-select >
                 <mat-option *ngFor="let user of usersList"
