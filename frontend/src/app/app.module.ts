@@ -10,7 +10,7 @@ import { HttpInterceptorInterceptor } from './core/interceptor/http-interceptor.
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

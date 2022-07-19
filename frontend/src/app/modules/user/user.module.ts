@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
@@ -15,8 +15,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { UsersListComponent } from './users-list/users-list.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AddUserComponent } from './add-user/add-user.component';
-
-
+import { ComponentsModule } from '../../shared/components/components.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +23,7 @@ import { AddUserComponent } from './add-user/add-user.component';
     TasksListComponent,
     AddTaskComponent,
     UsersListComponent,
-    AddUserComponent
+    AddUserComponent,
   ],
   imports: [
     CommonModule,
@@ -37,8 +36,10 @@ import { AddUserComponent } from './add-user/add-user.component';
     FormsModule,
     MatRadioModule,
     MatDialogModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    ComponentsModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     BsModalService
   ]
