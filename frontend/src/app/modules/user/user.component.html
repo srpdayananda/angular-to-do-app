@@ -13,7 +13,7 @@
     >Create User</button>
 
     <app-users-list  
-    [allTasks]="tasksList" 
+    (selectAllTasks)="onSelectedAllTasks($event)"
     (selectedUserId)="onSelectedUserId($event)"
     ></app-users-list>
 

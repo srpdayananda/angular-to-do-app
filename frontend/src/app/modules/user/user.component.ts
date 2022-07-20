@@ -51,6 +51,12 @@ export class UserComponent implements OnInit {
     }
   }
 
+  onSelectedAllTasks(yes: boolean) {
+    if (yes) {
+      this.getTasks()
+    }
+  }
+
   addTaskModal() {
     this.dailog.open(AddTaskComponent)
   }

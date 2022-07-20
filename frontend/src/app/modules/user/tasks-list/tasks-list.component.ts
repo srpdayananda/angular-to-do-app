@@ -18,6 +18,7 @@ export class TasksListComponent implements OnInit {
   constructor(private reTaskService: RebuildTaskService) { }
 
   ngOnInit(): void {
+    this.reTaskService.tasks
     this.onTodoTasks()
     this.onInprogressTasks()
     this.onDoneTasks()

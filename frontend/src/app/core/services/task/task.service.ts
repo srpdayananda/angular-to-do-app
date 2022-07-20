@@ -10,7 +10,6 @@ import { TaskHttpResponse, TasksHttpResponse } from 'src/app/shared/types/task.p
 })
 export class TaskService {
   apiUrl: string;
-  tasks: any;
 
   constructor(private http: HttpClient) {
     this.apiUrl = environment.apiUrl;

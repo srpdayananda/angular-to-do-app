@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { query } from 'express';
 import mongoose from 'mongoose'
 
 import { IRequest } from '../common/interfaces/request';
@@ -42,10 +42,15 @@ export default {
     },
     async get(req: IRequest, res: express.Response) {
         try {
-            let query = { userId: req.query.id }
+            let query;
+            if (req.query.id) {
+                query = { userId: req.query.id }
+            } else {
+                query = {}
+            }
+            console.log('$$$', query)
 
             const tasks = await Task.find(query).populate('userId', 'name')
-
             return res.status(200).send({
                 success: true,
                 message: 'get task successfull',

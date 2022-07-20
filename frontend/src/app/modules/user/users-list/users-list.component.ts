@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
 import { RebuildTaskService } from 'src/app/core/services/rebuild-task/rebuild-task.service';
+
 import { TaskService } from 'src/app/core/services/task/task.service';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { IUser } from 'src/app/shared/interfaces/user.interface';
@@ -12,16 +12,17 @@ import { IUser } from 'src/app/shared/interfaces/user.interface';
 })
 export class UsersListComponent implements OnInit {
   usersList: Array<IUser>
-  selectValue: string
   @Output() selectedUserId = new EventEmitter<string | null>()
-  @Input() allTasks: any;
+  @Output() selectAllTasks = new EventEmitter<boolean>()
   tasks: any;
 
   constructor(
     private userService: UserService,
-    private taskService: TaskService
+    private taskService: TaskService,
+    private rebuildTsService: RebuildTaskService
   ) {
     this.selectedUserId.emit(null)
+    this.selectAllTasks.emit(false)
   }
 
   ngOnInit(): void {
@@ -41,9 +42,12 @@ export class UsersListComponent implements OnInit {
   onSelectedItem(id?: string) {
     if (id) {
       this.selectedUserId.emit(id)
-    } else {
-      
     }
+  }
+
+  getAllTasks() {
+    this.selectAllTasks.emit(true)
+    console.log('$$$')
   }
 
 }
