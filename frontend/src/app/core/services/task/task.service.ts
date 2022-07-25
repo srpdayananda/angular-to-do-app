@@ -16,7 +16,6 @@ export class TaskService {
   }
 
   getTasks(id?: string): Observable<TasksHttpResponse> {
-    console.log('###', id)
     let params = new HttpParams()
     if (id) {
       params = new HttpParams().append('id', id)
@@ -25,8 +24,11 @@ export class TaskService {
   }
 
   createTask(props: any): Observable<TaskHttpResponse> {
-    console.log(props)
     return this.http.post<TaskHttpResponse>(`${this.apiUrl}/task`, props)
+  }
+
+  updateTask(props: any): Observable<TasksHttpResponse> {
+    return this.http.put<TasksHttpResponse>(`${this.apiUrl}/task`, props)
   }
 
 }

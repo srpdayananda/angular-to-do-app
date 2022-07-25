@@ -6,3 +6,4 @@ taskRouter
     .route('/')
     .post(taskController.create)
     .get(taskController.get)
+    .put(taskController.update)
