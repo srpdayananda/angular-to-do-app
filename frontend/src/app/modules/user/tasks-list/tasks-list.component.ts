@@ -18,6 +18,7 @@ export class TasksListComponent implements OnInit {
   id: string;
   status: string;
   title: string;
+  userId: any;
 
   constructor(
     private reTaskService: RebuildTaskService,
@@ -52,11 +53,13 @@ export class TasksListComponent implements OnInit {
               this.id = cTask._id
               this.status = Task.INPROGRESS
               this.title = cTask.title
+              this.userId = cTask.userId._id
 
               props = {
                 id: this.id,
                 status: this.status,
-                title: this.title
+                title: this.title,
+                userId: this.userId
               }
             }
 
@@ -69,11 +72,13 @@ export class TasksListComponent implements OnInit {
               this.id = task._id
               this.status = Task.DONE
               this.title = task.title
+              this.userId = task.userId
 
               props = {
                 id: this.id,
                 status: this.status,
-                title: this.title
+                title: this.title,
+                userId: this.userId
               }
             }
           })

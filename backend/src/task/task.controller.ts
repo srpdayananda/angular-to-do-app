@@ -3,6 +3,8 @@ import mongoose from 'mongoose'
 
 import { IRequest } from '../common/interfaces/request';
 import Task from './task.model';
+import User from '../user/user.model';
+import isManager from '../common/permission/isManager';
 
 export default {
     async create(req: IRequest, res: express.Response) {
@@ -66,25 +68,59 @@ export default {
     },
     async update(req: IRequest, res: express.Response) {
         try {
-            const findTask = await Task.findOne({ _id: req.body.id })
-            if (!findTask) {
+            const isManagerRole = await isManager(req.user.userId)
+            const selectUser = req.body.userId
+            const loggedUser = req.user.userId
+
+            if (isManagerRole) {
+                const findTask = await Task.findOne({ _id: req.body.id })
+                if (!findTask) {
+                    return res.status(500).send({
+                        success: false,
+                        error: "Can't find relavant task id"
+                    })
+                }
+
+                const query = { _id: req.body.id }
+                const newValue = {
+                    title: req.body.title,
+                    status: req.body.status
+                }
+                const updateTask = await Task.updateOne(query, newValue)
+                return res.status(200).send({
+                    success: true,
+                    message: 'Task update successfully',
+                    task: updateTask
+                })
+
+            }
+            else if (selectUser === loggedUser) {
+                const findTask = await Task.findOne({ _id: req.body.id })
+                if (!findTask) {
+                    return res.status(500).send({
+                        success: false,
+                        error: "Can't find relavant task id"
+                    })
+                }
+
+                const query = { _id: req.body.id }
+                const newValue = {
+                    title: req.body.title,
+                    status: req.body.status
+                }
+                const updateTask = await Task.updateOne(query, newValue)
+                return res.status(200).send({
+                    success: true,
+                    message: 'Task update successfully',
+                    task: updateTask
+                })
+            } else {
                 return res.status(500).send({
-                    success: false,
-                    error: "Can't find relavant task id"
+                    success: true,
+                    error: "You have't permission"
                 })
             }
 
-            const query = { _id: req.body.id }
-            const newValue = {
-                title: req.body.title,
-                status: req.body.status
-            }
-            const updateTask = await Task.updateOne(query, newValue)
-            return res.status(200).send({
-                success: true,
-                message: 'Task update successfully',
-                task: updateTask
-            })
         }
         catch (err) {
             return res.status(500).send({
