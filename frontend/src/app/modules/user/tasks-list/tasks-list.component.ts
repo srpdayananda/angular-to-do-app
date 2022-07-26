@@ -54,6 +54,7 @@ export class TasksListComponent implements OnInit {
               this.status = Task.INPROGRESS
               this.title = cTask.title
               this.userId = cTask.userId._id
+              
 
               props = {
                 id: this.id,
