@@ -3,9 +3,15 @@
   <div class="example-container">
     <h2>To do</h2>
 
-    <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todoTasks"
-      [cdkDropListConnectedTo]="[inprogressList,doneList]" class="example-list" (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let task of todoTasks" cdkDrag>{{task.title}}</div>
+    <div cdkDropList 
+    #todoList="cdkDropList" 
+    [cdkDropListData]="todoTasks"
+    [cdkDropListConnectedTo]="[inprogressList,doneList]" 
+    class="example-list" (cdkDropListDropped)="drop($event)"
+    >
+      <div class="example-box" 
+      *ngFor="let task of todoTasks" cdkDrag
+      >{{task.title}}</div>
     </div>
   </div>
 

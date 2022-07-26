@@ -54,7 +54,7 @@ export class TasksListComponent implements OnInit {
               this.status = Task.INPROGRESS
               this.title = cTask.title
               this.userId = cTask.userId._id
-              
+
 
               props = {
                 id: this.id,
@@ -73,7 +73,7 @@ export class TasksListComponent implements OnInit {
               this.id = task._id
               this.status = Task.DONE
               this.title = task.title
-              this.userId = task.userId
+              this.userId = task.userId._id
 
               props = {
                 id: this.id,
@@ -85,12 +85,11 @@ export class TasksListComponent implements OnInit {
           })
         }
         this.taskService.updateTask(props).subscribe((response) => {
-          console.log(response)
           if (response.success) {
             this.toastr.success(response.message)
           }
         }, (err) => {
-          console.log(err)
+          this.toastr.error(err.error.error)
         })
       });
 
